@@ -1,11 +1,21 @@
 """Restaurant rating lister."""
 import sys
 from random import choice
+import os
 
-file_name = sys.argv[1]
+list_of_files = os.listdir()
+
+for index in range(len(list_of_files)):
+    print(list_of_files[index], index)
+
+input_file = int(input("Pick the number associated with the file. "))
+input_file = list_of_files[input_file]
+
+
+# file_name = sys.argv[1]
 restaurant_info = {}
 
-for line in open(file_name):
+for line in open(input_file):
     line = line.rstrip().split(":")
     restaurant_info[line[0]] = line[1]
 
@@ -34,7 +44,7 @@ while user_input != "4":
 
     if user_input == "1":
         for key in sorted(restaurant_info):
-            print(key, "is rated at", restaurant_info[key] + ".")
+            print("{} is rated at {}.".format(key, restaurant_info[key]))
 
     elif user_input == "2":
         new_restaurant = input("Please give us a restaurant name: ")
@@ -51,15 +61,17 @@ while user_input != "4":
 
         elif user_random.lower() == "n":
             print("These are the restaurants currently rated.")
-            for key in restaurant_info:
-                print(key)
+            restaurant_keys = list(restaurant_info.keys())
 
-            user_restaurant = input("Please enter the restaurant you want to rate.")
+            for i in range(len(restaurant_keys)):
+                print(restaurant_keys[i], i)
 
-            while user_restaurant not in restaurant_info:
-                print("Please enter a valid restaurant name.")
-                user_restaurant = input()
+            user_number = int(input("Please enter the number associated with the restaurant you want to rate."))
 
-            test_user_rating(user_restaurant)
+            while user_number < 0 or user_number > len(restaurant_keys):
+                print("Please enter a valid restaurant number.")
+                user_number = int(input())
+
+            test_user_rating(restaurant_keys[user_number])
 
     user_input = get_user_input()
