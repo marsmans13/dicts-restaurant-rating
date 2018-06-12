@@ -50,6 +50,16 @@ while user_input != "4":
             test_user_rating(random_restaurant)
 
         elif user_random.lower() == "n":
-            pass
+            print("These are the restaurants currently rated.")
+            for key in restaurant_info:
+                print(key)
+
+            user_restaurant = input("Please enter the restaurant you want to rate.")
+
+            while user_restaurant not in restaurant_info:
+                print("Please enter a valid restaurant name.")
+                user_restaurant = input()
+
+            test_user_rating(user_restaurant)
 
     user_input = get_user_input()
